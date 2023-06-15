@@ -38,7 +38,28 @@ class TaskController {
         .json({ errors: errors.array() })
         .status(400);
     }
-    return res.json();
+    const newTask = new Task();
+
+    newTask.title = req.body.title;
+    newTask.date = req.body.date;
+    newTask.description = req.body.description;
+    newTask.priority = req.body.priority;
+    newTask.status = req.body.status;
+
+    let createdTask: Task;
+
+    try {
+      createdTask = await AppDataSource.getRepository(
+        Task,
+      ).save(newTask);
+
+      createdTask = instanceToPlain(createdTask) as Task;
+      return res.json(createdTask).status(201);
+    } catch (_error) {
+      return res
+        .json({ error: 'Internal server error' })
+        .status(500);
+    }
   }
 }
 
