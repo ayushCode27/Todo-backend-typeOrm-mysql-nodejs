@@ -39,3 +39,24 @@ export const createValidator: ValidationChain[] = [
       'Status can be completed, in progress, or todo',
     ),
 ];
+
+export const updateValidator: ValidationChain[] = [
+  body('id')
+    .not()
+    .isEmpty()
+    .withMessage('Task id is missing')
+    .trim()
+    .isString()
+    .withMessage('ID needs to be a valid UUID format'),
+
+  body('status')
+    .trim()
+    .isIn([
+      Status.completed,
+      Status.inProgress,
+      Status.todo,
+    ])
+    .withMessage(
+      'Status can be completed, in progress, or todo',
+    ),
+];

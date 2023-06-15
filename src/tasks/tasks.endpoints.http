@@ -13,3 +13,11 @@ Content-Type: application/json
     "priority":"normal",
     "status":"completed"
 }
+
+PUT  http://localhost:3200/tasks
+Content-Type: application/json
+
+{
+    "id":"ea889540-ad10-4afd-82e7-4d5170e05369",
+    "status":"inProgress"
+}
